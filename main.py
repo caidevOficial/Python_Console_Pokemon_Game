@@ -24,42 +24,43 @@ import datetime
 import time
 import pygame.mixer as mixer
 from modules.trainer import Trainer
-from modules.poke_system import Sistema
+from modules.poke_system import PokeSystem
 from modules.common_variables import (
-    _b_white, _f_red, _i_start, _no_color
+    _B_WHITE, _F_RED, _I_START, _NO_COLOR
 )
 
-FILE = './assets/configs/pokemons_data.json'
-LOG = './assets/logs/pokemons_log.txt'
-SOUND = './assets/music/battle.mp3'
+__FILE = './assets/configs/pokemons_data.json'
+__LOG = './assets/logs/pokemons_log.txt'
+__SOUND = './assets/music/battle.mp3'
 
 
 def pokemon_game():
     try:
+        
         mixer.init()
-        mixer.Sound.play(mixer.Sound(SOUND))
+        mixer.Sound.play(mixer.Sound(__SOUND))
 
-        sys_manager = Sistema(FILE, LOG)
+        sys_manager = PokeSystem(__FILE, __LOG)
         sys_manager.init_pokemons()
         pkm_trainer = Trainer('Ash Ketchum')
 
         sys_manager.assign_init_pokemons(pkm_trainer)
         sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
         
-        pkm_trainer.speak(f'{_b_white}{_f_red}', f'Hora del duelo Pokemon!', f'{_i_start}{_no_color}')
+        pkm_trainer.speak(f'{_B_WHITE}{_F_RED}', f'Hora del duelo Pokemon!', f'{_I_START}{_NO_COLOR}')
         pkm_trainer.next_pokemon()
         enemy_pokemon = sys_manager.next_pokemon() # Traigo al proximo pokemon para pelear
         still_can_fight = True
         time.sleep(2)
         while still_can_fight and sys_manager.pokemons:
-            Sistema.clear_console()
+            PokeSystem.clear_console()
             if not enemy_pokemon or not enemy_pokemon.has_hp():
                 enemy_pokemon = sys_manager.next_pokemon()
             is_player_turn = sys_manager.attack_turn()
-            Sistema.manage_game_turn(is_player_turn, pkm_trainer, enemy_pokemon)
+            PokeSystem.manage_game_turn(is_player_turn, pkm_trainer, enemy_pokemon)
             sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
             pkm_trainer.pokemon_in_battle = sys_manager.system_message(pkm_trainer, is_player_turn, pkm_trainer.pokemon_in_battle, enemy_pokemon)
-            Sistema.reset_buff([pkm_trainer.pokemon_in_battle, enemy_pokemon])
+            PokeSystem.reset_buff([pkm_trainer.pokemon_in_battle, enemy_pokemon])
             still_can_fight = pkm_trainer.check_win_or_lose()
             if still_can_fight:
                 pkm_trainer.catch_if_pokeball(enemy_pokemon)
@@ -69,7 +70,7 @@ def pokemon_game():
 
     except Exception as e:
         message = f'{datetime.datetime.now()} - {e.args}'
-        Sistema.write_file(sys_manager.log_path, 'a+', message)
+        PokeSystem.write_file(sys_manager.log_path, 'a+', message)
         print(
             'Error al ejecutar la funcion principal',
             f'Exception: {e.__traceback__.tb_lineno}',
