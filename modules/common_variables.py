@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import json
+
+
 _B_RED: enumerate = '\033[41m'
 _B_GREEN: enumerate = '\033[42m'
 _B_BLUE: enumerate = '\033[44m'
@@ -31,3 +34,7 @@ _NO_COLOR: enumerate = '\033[0m'
 _I_WIN: enumerate = '🎉'
 _I_LOSE: enumerate = '😵‍💫💀☠️'
 _I_START: enumerate = '🦾😎'
+
+def load_file(path: str) -> dict:
+    with open(path, 'r', encoding='utf-8') as archivo:
+        return dict(json.load(archivo)['sounds'])

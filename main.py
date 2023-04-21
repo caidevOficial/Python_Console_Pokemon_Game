@@ -26,23 +26,37 @@ import pygame.mixer as mixer
 from modules.trainer import Trainer
 from modules.poke_system import PokeSystem
 from modules.common_variables import (
-    _B_WHITE, _F_RED, _I_START, _NO_COLOR
+    _B_WHITE, _F_RED, _I_START, _NO_COLOR, load_file
 )
 
 __FILE = './assets/configs/pokemons_data.json'
 __LOG = './assets/logs/pokemons_log.txt'
-__SOUND = './assets/music/battle.mp3'
+__GAME_SOUNDS = load_file(__FILE)
+__BATTLE_S = __GAME_SOUNDS['battle_theme']
+__INTRO_S = __GAME_SOUNDS['intro_theme']
+
 
 
 def pokemon_game():
     try:
         
         mixer.init()
-        mixer.Sound.play(mixer.Sound(__SOUND))
+        sound = mixer.Sound(__INTRO_S)
+        sound.set_volume(0.8)
+        sound.play()
+        trainer_name = input('Hola entrenador/a, por favor dime tu nombre: ')
+        trainer_name = ' '.join([word.capitalize() for word in trainer_name.split(' ')])
 
+        dummy = input(f'Gracias {trainer_name}, te asignare 3 pokémones aleatorios para que puedas luchar.\nPresiona enter y empezemos!')
+        sound.stop()
+
+        sound = mixer.Sound(__BATTLE_S)
+        sound.set_volume(0.8)
+        sound.play()
+        
         sys_manager = PokeSystem(__FILE, __LOG)
         sys_manager.init_pokemons()
-        pkm_trainer = Trainer('Ash Ketchum')
+        pkm_trainer = Trainer(trainer_name)
 
         sys_manager.assign_init_pokemons(pkm_trainer)
         sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
@@ -67,6 +81,8 @@ def pokemon_game():
         pkm_trainer.check_status()
         sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
         sys_manager.show_score()
+
+        sound.stop()
 
     except Exception as e:
         message = f'{datetime.datetime.now()} - {e.args}'

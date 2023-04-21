@@ -180,5 +180,9 @@
 			"debilidad":["electrico", "agua", "fuego", "psiquico", "volador"],
 			"ataques": ["Counter", "Golpe Roca", "Patada Baja", "Demolicion", "Llave Giro"]
 		}
-	]
+	],
+	"sounds": {
+			"intro_theme": "./assets/music/intro.mp3",
+			"battle_theme" : "./assets/music/battle.mp3"
+		}
 }
