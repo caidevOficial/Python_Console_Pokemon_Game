@@ -25,9 +25,8 @@ import os
 import time
 from modules.pokemon import Pokemon
 from modules.common_variables import (
-    _b_green, _b_blue, _b_red, _b_white,
-    _f_black, _f_red, _f_white, _i_lose, _i_start,
-    _i_win, _no_color
+    _B_GREEN, _B_BLUE, _B_RED, _B_WHITE, _F_BLACK, 
+    _F_RED, _F_WHITE, _I_LOSE, _I_WIN, _NO_COLOR
 )
 
 class Trainer:
@@ -179,7 +178,7 @@ class Trainer:
         """
         if not pokemon.has_hp():
             self.catch_pokemon(pokemon)
-            print(f'{_b_green}{_f_black}Felicidades! Atrapaste un {pokemon.name}!{_no_color}\n')
+            print(f'{_B_GREEN}{_F_BLACK}Felicidades! Atrapaste un {pokemon.name}!{_NO_COLOR}\n')
 
     def catch_if_pokeball(self, pokemon: Pokemon) -> None:
         """
@@ -204,10 +203,10 @@ class Trainer:
         try:
             poke.heal()
             self.pokemons.append(poke)
-            self.speak(f'{_b_green}{_f_black}', f'Atrape a un {poke.name}!!', f'{_no_color}')
+            self.speak(f'{_B_GREEN}{_F_BLACK}', f'Atrape a un {poke.name}!!', f'{_NO_COLOR}')
             return True
         except Exception as e:
-            self.speak(f'{_b_red}{_f_white}', f'Falle al Atrapar a {poke.name}', f'{_no_color}')
+            self.speak(f'{_B_RED}{_F_WHITE}', f'Falle al Atrapar a {poke.name}', f'{_NO_COLOR}')
             return False
 
     def check_pokemons(self) -> None:
@@ -215,11 +214,11 @@ class Trainer:
         It prints the name of the trainer and the name of the pokemon, and the HP of the pokemon
         """
         if self.pokemons:
-            self.speak(f'{_b_blue}{_f_white}','Mis pokemones son:', f'{_no_color}')
+            self.speak(f'{_B_BLUE}{_F_WHITE}','Mis pokemones son:', f'{_NO_COLOR}')
             for pokemon in self.pokemons:
                 print(f'{self.name}: {pokemon.name} con {pokemon.hp} de HP.')
         if self.defeated_pokemons:
-            self.speak(f'{_b_blue}{_f_white}','Mis pokemones derrotados son:', f'{_no_color}')
+            self.speak(f'{_B_BLUE}{_F_WHITE}','Mis pokemones derrotados son:', f'{_NO_COLOR}')
             for pokemon_v in self.defeated_pokemons:
                 print(f'{self.name}: {pokemon_v.name} con {pokemon_v.hp} de HP.')
 
@@ -234,7 +233,7 @@ class Trainer:
                 if pokemon:
                     message =\
                     f"""
-                                    {_b_blue}{_f_white} {self.name}: {pokemon.name}, yo te elijo! 👉🏼⛔{_no_color}
+                                    {_B_BLUE}{_F_WHITE} {self.name}: {pokemon.name}, yo te elijo! 👉🏼⛔{_NO_COLOR}
                     """
                     os.system('cls')
                     print(message)
@@ -274,9 +273,9 @@ class Trainer:
         If the player has any pokemons or is in a battle, they win the game. If not, they lose
         """
         if self.pokemons or self.pokemon_in_battle:
-            self.speak(f'{_b_white}{_f_red}', 'Gane la liga pokemon!', f'{_i_win}{_no_color}')
+            self.speak(f'{_B_WHITE}{_F_RED}', 'Gane la liga pokemon!', f'{_I_WIN}{_NO_COLOR}')
             if self.pokemon_in_battle:
                 self.pokemons.insert(0, deepcopy(self.pokemon_in_battle))
         else:
-            self.speak(f'{_b_red}{_f_white}','Me quede sin pokemones!', f'{_no_color}{_i_lose}')
+            self.speak(f'{_B_RED}{_F_WHITE}','Me quede sin pokemones!', f'{_NO_COLOR}{_I_LOSE}')
         self.check_pokemons()

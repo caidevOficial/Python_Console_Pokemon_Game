@@ -22,9 +22,7 @@
 
 import random
 from modules.common_variables import (
-    _b_green, _b_blue, _b_red, _b_white,
-    _f_black, _f_red, _f_white, _i_lose, _i_start,
-    _i_win, _no_color
+    _F_RED, _NO_COLOR
 )
 
 class Pokemon:
@@ -479,7 +477,7 @@ class Pokemon:
             mensaje = f'>> Es poco efectivo! Daño -15%'
             effect_point = -3
             if self.is_critical_damage:
-                mensaje = f'>> Es poco efectivo! Daño -5% {_f_red}[CRITICAL DAMAGE]{_no_color}'
+                mensaje = f'>> Es poco efectivo! Daño -5% {_F_RED}[CRITICAL DAMAGE]{_NO_COLOR}'
                 booster = 0.95
                 effect_point = -2
             self.effectivity = effect_point
@@ -489,7 +487,7 @@ class Pokemon:
             mensaje = f'>> Es MUY efectivo! Daño +15% '
             effect_point = 3
             if self.is_critical_damage:
-                mensaje = f'>> Es MUY efectivo! Daño +25%  {_f_red}[CRITICAL DAMAGE]{_no_color}'
+                mensaje = f'>> Es MUY efectivo! Daño +25%  {_F_RED}[CRITICAL DAMAGE]{_NO_COLOR}'
                 booster = 1.25
                 effect_point = 4
             self.effectivity = effect_point

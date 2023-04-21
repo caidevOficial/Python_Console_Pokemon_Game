@@ -30,12 +30,11 @@ from modules.pokemon import Pokemon
 from modules.trainer import Trainer
 
 from modules.common_variables import (
-    _b_green, _b_blue, _b_red, _b_white,
-    _f_black, _f_red, _f_white, _i_lose, _i_start,
-    _i_win, _no_color
+    _B_GREEN, _B_BLUE, _B_RED, 
+    _F_BLACK, _F_WHITE, _NO_COLOR
 )
 
-class Sistema:
+class PokeSystem:
     _log_path: str = ''
     _filename: str = ''
     _wild_pokemones: list[Pokemon] = None
@@ -110,15 +109,15 @@ class Sistema:
 
     def init_pokemons(self):
         try:
-            self.pokemons = Sistema.parse_objects(
-                Sistema.load_file(
+            self.pokemons = PokeSystem.parse_objects(
+                PokeSystem.load_file(
                     self._filename
                 )
             )
             print(f'Sistema: {len(self.pokemons)} Pokemones salvajes encontrados!')
         except Exception as e:
             message = f'{datetime.datetime.now()} - {e.args}'
-            Sistema.write_file(self.log_path, 'a+', message)
+            PokeSystem.write_file(self.log_path, 'a+', message)
             print(
                 'Error al inicializar pokemones',
                 f'Exception: {e.args}',
@@ -135,7 +134,7 @@ class Sistema:
             raise IndexError
         except Exception as e:
             message = f'{datetime.datetime.now()} - {e.args}'
-            Sistema.write_file(self.log_path, 'a+', message)
+            PokeSystem.write_file(self.log_path, 'a+', message)
             print(
                 'Error Al cargar pokemones',
                 f'Exception: {e.args}',
@@ -150,10 +149,10 @@ class Sistema:
         try:
             if poke_a and poke_b:
                 if turno:
-                    attack_message = f'>>⬆️  {_b_green}{_f_black}{poke_a.name} uso {poke_a.current_attack} contra {poke_b.name} enemigo y causo {poke_a.dmg_current_attack} daño{_no_color} {poke_a.efectivity_message}'
+                    attack_message = f'>>⬆️  {_B_GREEN}{_F_BLACK}{poke_a.name} uso {poke_a.current_attack} contra {poke_b.name} enemigo y causo {poke_a.dmg_current_attack} daño{_NO_COLOR} {poke_a.efectivity_message}'
                     #poke_b.restar_vida(int(poke_a.dmg_ataque_actual*1.5))
                 else:
-                    attack_message = f'>>⬇️  {_b_red}{_f_white}{poke_b.name} enemigo uso {poke_b.current_attack} contra {poke_a.name} y causo {poke_b.dmg_current_attack} daño{_no_color} {poke_b.efectivity_message}'
+                    attack_message = f'>>⬇️  {_B_RED}{_F_WHITE}{poke_b.name} enemigo uso {poke_b.current_attack} contra {poke_a.name} y causo {poke_b.dmg_current_attack} daño{_NO_COLOR} {poke_b.efectivity_message}'
                     #poke_a.restar_vida(int(poke_b.dmg_ataque_actual*0.5))
                 consola =\
                 """
@@ -178,7 +177,7 @@ class Sistema:
                 return poke_a
         except Exception as e:
             message = f'{datetime.datetime.now()} - {e.args}'
-            Sistema.write_file(Sistema.log_path, 'a+', message)
+            PokeSystem.write_file(PokeSystem.log_path, 'a+', message)
             print(
                 'Error Al mostrar mensaje de batalla',
                 f'Exception: {e.args}',
@@ -204,7 +203,7 @@ class Sistema:
                         poke_enemy.continue_battle(pkm_trainer.pokemon_in_battle) # Me ataca
         except Exception as e:
             message = f'{datetime.datetime.now()} - {e.args}'
-            Sistema.write_file(Sistema.log_path, 'a+', message)
+            PokeSystem.write_file(PokeSystem.log_path, 'a+', message)
             print(
                 'Error Al Gestionar turnos de jugador o enemigo',
                 f'Exception: {e.args}',
@@ -236,7 +235,7 @@ class Sistema:
         mensaje =\
         """
         {0}{1}Puntaje Final: {2:4d}{3}
-        """.format(_b_blue, _f_white, self.player_score, _no_color)
+        """.format(_B_BLUE, _F_WHITE, self.player_score, _NO_COLOR)
         print(mensaje)
     
     @staticmethod
