@@ -34,6 +34,19 @@
 
 # Mini Automatic Pok&eacute;mon Game [Console Version].
 
+<table>
+  <thead>
+    <th>Example</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+          <img alt="Pyhton Logo" src="./assets/images/console.png?raw=true"/>
+      </td>
+    </tr>
+  <tbody>
+</table>
+
 <br><br><br>
 <table align='center'>
     <tr align='center'>
