@@ -26,7 +26,8 @@ import pygame.mixer as mixer
 from modules.trainer import Trainer
 from modules.poke_system import PokeSystem
 from modules.common_variables import (
-    _B_WHITE, _F_RED, _I_START, _NO_COLOR, load_file
+    _B_WHITE, _F_RED, _I_START, _NO_COLOR, 
+    load_file, poke_message, validate_input
 )
 
 __FILE = './assets/configs/pokemons_data.json'
@@ -38,20 +39,26 @@ __INTRO_S = __GAME_SOUNDS['intro_theme']
 
 
 def pokemon_game():
+    """
+    The function "pokemon_game" runs a game where the player battles against randomly assigned Pokemon.
+    """
     try:
         
         mixer.init()
         sound = mixer.Sound(__INTRO_S)
-        sound.set_volume(0.8)
+        sound.set_volume(0.2)
         sound.play()
-        trainer_name = input('Hola entrenador/a, por favor dime tu nombre: ')
+        poke_message('Hola entrenador/a, por favor dime tu nombre: ', 'info')
+        
+        trainer_name = validate_input(input())
         trainer_name = ' '.join([word.capitalize() for word in trainer_name.split(' ')])
 
-        dummy = input(f'Gracias {trainer_name}, te asignare 3 pokémones aleatorios para que puedas luchar.\nPresiona enter y empezemos!')
+        poke_message(f'Gracias {trainer_name}, te asignare 3 pokémones aleatorios para que puedas luchar.\nPresiona enter y empezemos!', 'success')
+        _ = input()
         sound.stop()
 
         sound = mixer.Sound(__BATTLE_S)
-        sound.set_volume(0.8)
+        sound.set_volume(0.2)
         sound.play()
         
         sys_manager = PokeSystem(__FILE, __LOG)

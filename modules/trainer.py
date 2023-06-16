@@ -39,8 +39,15 @@ class Trainer:
     _name: str = None
     _throw_pokeball: bool = False
 
-    def __init__(self, nombre: str):
-        self.name = nombre
+    def __init__(self, trainer_name: str):
+        """
+        This is a constructor function for a class that initializes the name, list of pokemons, and list
+        of defeated pokemons.
+        
+        :param trainer_name: The parameter "trainer_name" is a string that represents the name of an object being
+        initialized. In this case, it is used to set the name of an instance of a class
+        """
+        self.name = trainer_name
         self._pokemons = list[Pokemon]()
         self._defeated_pokemons = list[Pokemon]()
 
@@ -79,9 +86,9 @@ class Trainer:
     @property
     def defeated_pokemons(self) -> list[Pokemon]:
         """
-        Def defeated_pokemons(self) -> list[Pokemon]:
-                return self._defeated_pokemons
-        :return: A list of Pokemon objects
+        This function returns a list of defeated Pokemons.
+        :return: The method `defeated_pokemons` is returning a list of `Pokemon` objects, which is the
+        list of defeated pokemons.
         """
         return self._defeated_pokemons
 
@@ -91,7 +98,6 @@ class Trainer:
         It sets the current pokemon to the pokemon in battle.
         
         :param poke_batalla: Pokemon
-        :type poke_batalla: Pokemon
         """
         self._current_pokemon = poke_batalla
 
@@ -102,19 +108,17 @@ class Trainer:
         attribute to the value of the lanzada parameter
         
         :param lanzada: bool
-        :type lanzada: bool
         """
         self._throw_pokeball = lanzada
 
     @name.setter
-    def name(self, nombre: str) -> None:
+    def name(self, trainer_name: str) -> None:
         """
         This function takes a string as an argument and assigns it to the _name attribute of the object
         
-        :param nombre: str
-        :type nombre: str
+        :param trainer_name: str
         """
-        self._name = nombre
+        self._name = trainer_name
 
     @pokemons.setter
     def pokemons(self, pokes: list[Pokemon]) -> None:
@@ -123,7 +127,6 @@ class Trainer:
         object to a copy of the list
         
         :param pokes: list[Pokemon]
-        :type pokes: list[Pokemon]
         """
         self._pokemons = pokes.copy()
 
@@ -134,7 +137,6 @@ class Trainer:
         Trainer object to a copy of the list
         
         :param pokes: list[Pokemon]
-        :type pokes: list[Pokemon]
         """
         self._defeated_pokemons = pokes.copy()
 
@@ -144,14 +146,11 @@ class Trainer:
         and returns `None`
         
         :param color_code_init: The color code to start the message with
-        :type color_code_init: str
         :param mensaje: str = The message you want to print
-        :type mensaje: str
         :param color_code_end: str = '\033[0m'
-        :type color_code_end: str
         """
-        texto = f'\n{color_code_init}{self.name}: {mensaje}{color_code_end}'
-        print(texto)
+        trainer_text = f'\n{color_code_init}{self.name}: {mensaje}{color_code_end}'
+        print(trainer_text)
 
     def throw_pokeball(self) -> bool:
         """
@@ -174,7 +173,6 @@ class Trainer:
         If the pokemon has no life, then catch it
         
         :param pokemon: Pokemon
-        :type pokemon: Pokemon
         """
         if not pokemon.has_hp():
             self.catch_pokemon(pokemon)
@@ -185,7 +183,6 @@ class Trainer:
         If the player has a pokeball, then try to catch the pokemon
         
         :param pokemon: Pokemon
-        :type pokemon: Pokemon
         """
         if self.check_pokeball(): # Chequeo si lanze pokebola o no
             self.try_catch_pokemon(deepcopy(pokemon))
@@ -197,7 +194,6 @@ class Trainer:
         a message saying that the pokemon was not caught
         
         :param poke: Pokemon
-        :type poke: Pokemon
         :return: The return value is a boolean.
         """
         try:
@@ -253,7 +249,6 @@ class Trainer:
         It takes a pokemon object as an argument and adds it to the defeated_pokemons list
         
         :param pokemon: Pokemon
-        :type pokemon: Pokemon
         """
         self.speak('', f'{pokemon.name}, peleaste bien, regresa a tu pokebola!', '')
         self.defeated_pokemons.append(deepcopy(pokemon))
@@ -263,10 +258,10 @@ class Trainer:
         If the player has any pokemon in their party or in battle, they can continue playing
         :return: a boolean value.
         """
-        puede_continuar = False
+        can_continue = False
         if self.pokemons or self.pokemon_in_battle:
-            puede_continuar = True
-        return puede_continuar
+            can_continue = True
+        return can_continue
 
     def check_status(self) -> None:
         """

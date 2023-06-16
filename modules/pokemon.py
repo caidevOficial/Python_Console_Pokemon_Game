@@ -216,7 +216,6 @@ class Pokemon:
         string
         
         :param ataque: str
-        :type ataque: str
         """
         self._current_attack = pkm_attack
 
@@ -227,7 +226,6 @@ class Pokemon:
         value of the argument rounded to two decimal places
         
         :param ataque: int
-        :type ataque: int
         """
         self._attack_damage = round(pkm_attack, 2)
 
@@ -237,7 +235,6 @@ class Pokemon:
         It takes a float as an argument and returns None
         
         :param cantidad: float = The amount of life you want to add to the player
-        :type cantidad: float
         """
         self._life = round(pkm_amount_hp, 2)
 
@@ -247,7 +244,6 @@ class Pokemon:
         <code>types</code> is a function that takes a list of strings and returns None
         
         :param tipos: list[str]
-        :type tipos: list[str]
         """
         self._types = pkm_types.copy()
 
@@ -258,7 +254,6 @@ class Pokemon:
         of the object
         
         :param evoluciones: list[str]
-        :type evoluciones: list[str]
         """
         self._evolutions = pkm_evolutions.copy()
 
@@ -268,7 +263,6 @@ class Pokemon:
         The function takes a list of strings as an argument and assigns it to the attribute _strenghts
         
         :param fortalezas: list[str]
-        :type fortalezas: list[str]
         """
         self._strenghts = pkm_strenghts.copy()
 
@@ -278,7 +272,6 @@ class Pokemon:
         It takes a list of strings as an argument and assigns it to the instance variable _weakness
         
         :param debilidades: list[str]
-        :type debilidades: list[str]
         """
         self._weakness = pkm_weakness.copy()
 
@@ -288,7 +281,6 @@ class Pokemon:
         It takes a list of strings as an argument and assigns it to the _attacks attribute of the object
         
         :param ataques: list[str]
-        :type ataques: list[str]
         """
         self._attacks = pkm_attacks.copy()
 
@@ -307,7 +299,6 @@ class Pokemon:
         This function takes a string as an argument and assigns it to the _name attribute of the object
         
         :param nombre: str
-        :type nombre: str
         """
         self._name = pkm_name
 
@@ -317,7 +308,6 @@ class Pokemon:
         This function takes in a parameter called poder, which is an integer, and returns None
         
         :param poder: int
-        :type poder: int
         """
         self._power = pkm_power
 
@@ -327,7 +317,6 @@ class Pokemon:
         It takes a bytes object and sets it as the icon of the window
         
         :param icono: The icon to be used
-        :type icono: bytes
         """
         self._icon = pkm_icon
 
@@ -339,7 +328,6 @@ class Pokemon:
         <code>None</code>
         
         :param icono_el: bytes
-        :type icono_el: bytes
         """
         self._icon_el = pkm_icon_el
 
@@ -353,7 +341,6 @@ class Pokemon:
         <code>None</code>.
         
         :param mensaje: str
-        :type mensaje: str
         """
         self._msg_efectivity = effct_message
 
@@ -363,7 +350,6 @@ class Pokemon:
         This function takes in a number and sets the effectivity of the pokemon to that number
         
         :param number: int
-        :type number: int
         """
         self._effectivity = number
 
@@ -377,7 +363,6 @@ class Pokemon:
         attribute _critical_hit
         
         :param es_critico: bool
-        :type es_critico: bool
         """
         self._critical_hit = is_critical
 
@@ -400,7 +385,6 @@ class Pokemon:
         HP, otherwise, make the character faint
         
         :param cantidad: int
-        :type cantidad: int
         """
         if amount_hp <= self.hp:
             self.hp = self.hp - amount_hp
