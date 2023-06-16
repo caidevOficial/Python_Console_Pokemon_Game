@@ -38,11 +38,14 @@ __INTRO_S = __GAME_SOUNDS['intro_theme']
 
 
 def pokemon_game():
+    """
+    The function "pokemon_game" runs a game where the player battles against randomly assigned Pokemon.
+    """
     try:
         
         mixer.init()
         sound = mixer.Sound(__INTRO_S)
-        sound.set_volume(0.8)
+        sound.set_volume(0.2)
         sound.play()
         trainer_name = input('Hola entrenador/a, por favor dime tu nombre: ')
         trainer_name = ' '.join([word.capitalize() for word in trainer_name.split(' ')])
@@ -51,7 +54,7 @@ def pokemon_game():
         sound.stop()
 
         sound = mixer.Sound(__BATTLE_S)
-        sound.set_volume(0.8)
+        sound.set_volume(0.2)
         sound.play()
         
         sys_manager = PokeSystem(__FILE, __LOG)

@@ -22,7 +22,6 @@
 
 import json
 
-
 _B_RED: enumerate = '\033[41m'
 _B_GREEN: enumerate = '\033[42m'
 _B_BLUE: enumerate = '\033[44m'
@@ -36,5 +35,13 @@ _I_LOSE: enumerate = '😵‍💫💀☠️'
 _I_START: enumerate = '🦾😎'
 
 def load_file(path: str) -> dict:
-    with open(path, 'r', encoding='utf-8') as archivo:
-        return dict(json.load(archivo)['sounds'])
+    """
+    This function loads a JSON file from a given path and returns a dictionary containing the 'sounds'
+    key from the file.
+    
+    :param path: The path parameter is a string that represents the file path of the JSON file that
+    contains the data to be loaded
+    :return: A dictionary containing the 'sounds' data from a JSON file located at the specified path.
+    """
+    with open(path, 'r', encoding='utf-8') as file:
+        return dict(json.load(file)['sounds'])
