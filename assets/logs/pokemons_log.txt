@@ -19,3 +19,4 @@
 2022-10-13 01:50:58.103159 - ("'NoneType' object has no attribute 'effectivity'",)
 2022-10-13 20:02:37.968070 - ('expected str, bytes or os.PathLike object, not property',)
 2022-10-13 20:04:33.260744 - ('expected str, bytes or os.PathLike object, not property',)
+2023-06-16 02:32:05.443215 - ("object of type 'int' has no len()",)

@@ -38,6 +38,7 @@ class Trainer:
     _defeated_pokemons: list[Pokemon] = None
     _name: str = None
     _throw_pokeball: bool = False
+    _status = None
 
     def __init__(self, trainer_name: str):
         """
@@ -92,6 +93,15 @@ class Trainer:
         """
         return self._defeated_pokemons
 
+    @property
+    def status(self) -> str:
+        """
+        This function returns the status of an object as a string.
+        :return: The method `status` is returning a string, which is the value of the private attribute
+        `_status`.
+        """
+        return self._status
+
     @pokemon_in_battle.setter
     def pokemon_in_battle(self, poke_batalla: Pokemon) -> Pokemon:
         """
@@ -139,6 +149,19 @@ class Trainer:
         :param pokes: list[Pokemon]
         """
         self._defeated_pokemons = pokes.copy()
+    
+    @status.setter
+    def status(self, stats: str) -> None:
+        """
+        This is a method in a Python class that sets the status attribute of an object to the value
+        passed in as an argument.
+        
+        :param stats: The "stats" parameter is a string that represents the status of an object. The
+        method "status" takes this string as input and sets the "_status" attribute of the object to the
+        value of the "stats" parameter. The "_status" attribute is likely used to keep track of the
+        current
+        """
+        self._status = stats
 
     def speak(self, color_code_init: str, mensaje: str, color_code_end: str) -> None:
         """
@@ -271,6 +294,8 @@ class Trainer:
             self.speak(f'{_B_WHITE}{_F_RED}', 'Gane la liga pokemon!', f'{_I_WIN}{_NO_COLOR}')
             if self.pokemon_in_battle:
                 self.pokemons.insert(0, deepcopy(self.pokemon_in_battle))
+            self._status = 'Won'
         else:
             self.speak(f'{_B_RED}{_F_WHITE}','Me quede sin pokemones!', f'{_NO_COLOR}{_I_LOSE}')
+            self._status = 'Lose'
         self.check_pokemons()

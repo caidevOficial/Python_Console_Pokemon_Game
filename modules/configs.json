@@ -1,0 +1,20 @@
+{
+    "database": {
+        "name": "poke_game_db",
+        "table_name": "trainer_scores",
+        "delete_before_insert": false,
+        "paths": {
+            "db_file": "./modules/database/poke_game_db.db",
+            "DDL": {
+                "create": "./modules/database/queries/DDL/create.sql",
+                "drop": "./modules/database/queries/DDL/drop.sql"
+            },
+            "DML": {
+                "delete": "./modules/database/queries/DML/delete.sql",
+                "insert": "./modules/database/queries/DML/insert.sql",
+                "select": "./modules/database/queries/DDL/select.sql",
+                "update": "./modules/database/queries/DML/update.sql"
+            }
+        }
+    }
+}

@@ -83,3 +83,17 @@ def poke_message(message: str, message_type: str) -> None:
             print(f'{_b_green}{_f_white}> Success: {message}{_no_color}')
         case 'Info':
             print(f'{_b_blue}{_f_white}> Information: {message}{_no_color}')
+
+def load_configs(path: str) -> dict:
+    """
+    This function loads a dictionary of database configurations from a JSON file located at the given
+    path.
+    
+    :param path: The path parameter is a string that represents the file path of the JSON file
+    containing the database configurations
+    :type path: str
+    :return: A dictionary containing the database configurations loaded from a JSON file located at the
+    specified path.
+    """
+    with open(path, 'r', encoding='utf-8') as file:
+        return dict(json.load(file)['database'])

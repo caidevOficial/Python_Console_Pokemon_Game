@@ -25,6 +25,7 @@ import time
 import pygame.mixer as mixer
 from modules.trainer import Trainer
 from modules.poke_system import PokeSystem
+from modules.database.db_manager import DAOManager
 from modules.common_variables import (
     _B_WHITE, _F_RED, _I_START, _NO_COLOR, 
     load_file, poke_message, validate_input
@@ -63,8 +64,10 @@ def pokemon_game():
         
         sys_manager = PokeSystem(__FILE, __LOG)
         sys_manager.init_pokemons()
+        dao_manager = DAOManager()
         pkm_trainer = Trainer(trainer_name)
 
+        dao_manager.create_table()
         sys_manager.assign_init_pokemons(pkm_trainer)
         sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
         
@@ -88,7 +91,7 @@ def pokemon_game():
         pkm_trainer.check_status()
         sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
         sys_manager.show_score()
-
+        dao_manager.insert_table(pkm_trainer, sys_manager)
         sound.stop()
 
     except Exception as e:
