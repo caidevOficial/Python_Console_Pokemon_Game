@@ -109,26 +109,22 @@ class DAOManager:
         query = self.__replace_table_name(self.__open_query_file(self.__dml_paths['insert']))
         to_replace = re.findall("1_.", query)
         elements = [
-            trainer.name, trainer.status, len(trainer.defeated_pokemons) + len(trainer.pokemons), poke_sys.player_score]
-        
-        #tuples_list = dataframe.itertuples(index=False, name=None)
+            trainer.name, trainer.status, 
+            len(trainer.defeated_pokemons) + len(trainer.pokemons), 
+            poke_sys.player_score]
         queries = list[str]()
-        #for data in elements:
         query_replaced = self.__create_insert_query(to_replace, elements, query)
         queries.append(query_replaced)
         self.__execute_queries(queries, 'Error adding the data', 'Data inserted successfully', type='insert')
     
-    def __create_insert_query(self, to_replace: list[str], replacement: tuple, query_base: str) -> str:
+    def __create_insert_query(self, to_replace: list[str], replacement: list, query_base: str) -> str:
         """
         It takes a list of strings and a tuple of strings and replaces the strings in the list with the
         strings in the tuple in a given string
         
         :param to_replace: list of strings to be replaced in the query
-        :type to_replace: list[str]
-        :param replacement: tuple with the values to replace in the query
-        :type replacement: tuple
+        :param replacement: list with the values to replace in the query
         :param query_base: The base query that will be used to create the insert query by replacing its values
-        :type query_base: str
         :return: The query with all the values replaced to be executed.
         """
         query_replaced = query_base
