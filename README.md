@@ -49,12 +49,30 @@
 
 <br><br><br>
 <table align='center'>
+    <h2 align='center'>Technologies used. 📌</h2>
     <tr align='center'>
-        <h2 align='center'>Technologies used. 📌</h2>
         <td>
             <a href="https://www.python.org/downloads/"><img alt="Pyhton Logo" src="https://github.com/caidevOficial/Logos/blob/master/Lenguajes/py_logo1_1.png?raw=true" width="50px" height="50px" /></a>
         </td>
         <td><center>Python</center></td>
+    </tr>
+    <tr align='center'>
+        <td>
+            <a href="https://pandas.pydata.org/"><img alt="Pandas Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pandas_logo.svg/1200px-Pandas_logo.svg.png?raw=true" height="50px" /></a>
+        </td>
+        <td><center>Pandas</center></td>
+    </tr>
+    <tr align='center'>
+        <td>
+            <a href="https://www.pygame.org/news"><img alt="Pygame Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Pygame_logo.gif/640px-Pygame_logo.gif?raw=true" height="50px" /></a>
+        </td>
+        <td><center>Pygame</center></td>
+    </tr>
+    <tr align='center'>
+        <td>
+            <a href="https://www.sqlite.org/"><img alt="SQLite Logo" src="https://camo.githubusercontent.com/1b8a779f280e099e2d67ab949dad604e25ce0d321e66474c04430201790b3874/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f73716c6974652f73716c6974652d69636f6e2e737667?raw=true" width="50px" height="50px" /></a>
+        </td>
+        <td><center>SQLite</center></td>
     </tr>
     <tr align='center'>
         <td>
