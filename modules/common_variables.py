@@ -47,19 +47,21 @@ def load_file(path: str) -> dict:
     with open(path, 'r', encoding='utf-8') as file:
         return dict(json.load(file)['sounds'])
 
-def validate_input(input: str) -> str:
+def validate_input(patron: str, input: str, return_error) -> str:
     """
-    This function validates if the input string contains only alphanumeric characters, spaces, and
-    underscores, and returns the input if it does, otherwise returns 'Ash Ketchum'.
+    This function validates input based on a given pattern and returns an error message if the input
+    does not match the pattern.
     
-    :param input: A string that needs to be validated
-    :type input: str
-    :return: If the input string contains only letters, numbers, spaces, and underscores, it will return
-    the input string. Otherwise, it will return the string 'Ash Ketchum'.
+    :param patron: A regular expression pattern that the input string should match
+    :param input: The input string that needs to be validated against the given pattern
+    :param return_error: The parameter "return_error" is a string that will be returned if the input
+    string does not match the specified pattern
+    :return: either the input string if it matches the specified pattern, or the return_error string if
+    it does not match.
     """
-    if re.match('^[a-zA-Z0-9 _]+$', input):
+    if re.match(patron, input):
         return input
-    return 'Ash Ketchum'
+    return return_error
 
 def poke_message(message: str, message_type: str) -> None:
     """
@@ -91,7 +93,6 @@ def load_configs(path: str) -> dict:
     
     :param path: The path parameter is a string that represents the file path of the JSON file
     containing the database configurations
-    :type path: str
     :return: A dictionary containing the database configurations loaded from a JSON file located at the
     specified path.
     """

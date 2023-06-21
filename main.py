@@ -37,9 +37,21 @@ __GAME_SOUNDS = load_file(__FILE)
 __BATTLE_S = __GAME_SOUNDS['battle_theme']
 __INTRO_S = __GAME_SOUNDS['intro_theme']
 
+def __show_menu():
+    """
+    The function displays a menu with two options and prompts the user to select one of them.
+    :return: The function `show_menu()` returns the user's selected option (either 1 or 2) after
+    validating the input.
+    """
+    message =\
+        """
+        1 - New Game
+        2 - Show ranking
+        """
+    option = validate_input('^[1-2]{1}$', input(f'{message}\nselect: '), 0)
+    return option
 
-
-def pokemon_game():
+def __pokemon_game():
     """
     The function "pokemon_game" runs a game where the player battles against randomly assigned Pokemon.
     """
@@ -51,7 +63,7 @@ def pokemon_game():
         sound.play()
         poke_message('Hola entrenador/a, por favor dime tu nombre: ', 'info')
         
-        trainer_name = validate_input(input())
+        trainer_name = validate_input('^[a-zA-Z0-9 _]+$', input(), 'Ash Ketchum')
         trainer_name = ' '.join([word.capitalize() for word in trainer_name.split(' ')])
 
         poke_message(f'Gracias {trainer_name}, te asignare 3 pokémones aleatorios para que puedas luchar.\nPresiona enter y empezemos!', 'success')
@@ -103,6 +115,20 @@ def pokemon_game():
             f'Details: {e}',
             sep='\n')
 
+def main_game() -> None:
+    """
+    The function presents a menu to the user and executes different actions based on their selection.
+    """
+    selected = __show_menu()
+    match selected:
+        case '1':
+            __pokemon_game()
+        case '2':
+            dao_manager = DAOManager()
+            dao_manager.select_table()
+        case _:
+            print('Error, please select between 1 or 2.')
+
 
 if __name__ == '__main__':
-    pokemon_game()
+    main_game()

@@ -12,7 +12,7 @@
             "DML": {
                 "delete": "./modules/database/queries/DML/delete.sql",
                 "insert": "./modules/database/queries/DML/insert.sql",
-                "select": "./modules/database/queries/DDL/select.sql",
+                "select": "./modules/database/queries/DML/select.sql",
                 "update": "./modules/database/queries/DML/update.sql"
             }
         }

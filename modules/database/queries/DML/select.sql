@@ -19,6 +19,6 @@
 SELECT
     `id`, `trainer_name`, `status`, `amount_pokemons`, `score`, `dataingestiondttm`
 FROM `T_NAME`
-ORDER BY `COLUMN` DESC
 GROUP BY
-`trainer_name`, `status`;
+`id`, `trainer_name`, `status`, `amount_pokemons`, `score`, `dataingestiondttm`
+ORDER BY `score` DESC;

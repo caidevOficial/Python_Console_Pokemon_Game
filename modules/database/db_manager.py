@@ -18,13 +18,14 @@
 import re
 import sqlite3 as db
 from pandas import DataFrame
+import pandas as pd
 from modules.common_variables import load_configs
 from modules.trainer import Trainer
 from modules.poke_system import PokeSystem
 
 class DAOManager:
     "Represents the DAO Manager, using SQLite"
-    
+    __result_from_query: list = list()
     def __init__(self) -> None:
         self.__db_configs = load_configs('./modules/configs.json')
         self.__db_name: str = self.__db_configs['name']
@@ -46,7 +47,7 @@ class DAOManager:
         with open(query_path, 'r') as db_config:
             return db_config.read()
 
-    def __execute_queries(self, queries: list[str], error_msg: str, success_msg: str, type: str = 'create') -> None:
+    def __execute_queries(self, queries: list[str], error_msg: str, success_msg: str, type: str = 'create') -> db.Cursor:
         """
         It executes a list of queries and returns the result of the last query executed
         
@@ -147,3 +148,43 @@ class DAOManager:
         """
         query = self.__replace_table_name(self.__open_query_file(self.__ddl_paths['drop']))
         self.__execute_queries([query], 'Error dropping the table', f'Table {self.__table} dropped successfully', type='drop')
+    
+    def __create_df(self, columns: list, data: list[tuple]) -> pd.DataFrame:
+        """
+        This function creates a pandas DataFrame from a list of columns and data.
+        
+        :param columns: A list of column names for the DataFrame
+        :param data: A list of tuples where each tuple represents a row of data for the DataFrame. The
+        length of each tuple should match the number of columns specified in the 'columns' parameter
+        :return: a pandas DataFrame object created from the input columns and data.
+        """
+        db_df = DataFrame(data, columns=columns, index=[i for i in range(len(data))])
+        return db_df
+    
+    def __query_select(self) -> db.Cursor:
+        """
+        This function executes a select query on a database table and returns the result as a cursor
+        object.
+        :return: a database cursor object.
+        """
+        query = self.__replace_table_name(self.__open_query_file(self.__dml_paths['select']))
+        result = self.__execute_queries([query], 'Error getting the table info', f'Table {self.__table} read successfully', type='select')
+        return result
+    
+    def __select_to_df(self) -> pd.DataFrame:
+        """
+        This function executes a SELECT query, retrieves the result, and returns it as a pandas
+        DataFrame.
+        :return: A pandas DataFrame is being returned.
+        """
+        self.__result_from_query = self.__query_select()
+        query = self.__replace_table_name(self.__open_query_file(self.__dml_paths['select']))
+        result = self.__execute_queries([query], 'Error getting the table info', f'Table {self.__table} read successfully', type='select')
+        fields = [field[0] for field in result.description]
+        return self.__create_df(fields, self.__result_from_query.fetchall())
+    
+    def select_table(self) -> DataFrame:
+        """
+        This function prints the result of selecting data from a database table as a pandas DataFrame.
+        """
+        print(self.__select_to_df(), sep='\n')
