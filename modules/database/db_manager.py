@@ -158,7 +158,7 @@ class DAOManager:
         length of each tuple should match the number of columns specified in the 'columns' parameter
         :return: a pandas DataFrame object created from the input columns and data.
         """
-        db_df = DataFrame(data, columns=columns, index=[i for i in range(len(data))])
+        db_df = DataFrame(data, columns=columns)
         return db_df
     
     def __query_select(self) -> db.Cursor:
@@ -187,4 +187,6 @@ class DAOManager:
         """
         This function prints the result of selecting data from a database table as a pandas DataFrame.
         """
-        print(self.__select_to_df(), sep='\n')
+        print(
+            "Players ordered by score DESC:",
+            self.__select_to_df(), sep='\n')

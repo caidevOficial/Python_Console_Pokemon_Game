@@ -135,7 +135,7 @@ class PokeSystem:
         elif pkm_trainer.pokemons:
             pass
         else:
-            score += (-4 * len(pkm_trainer.defeated_pokemons))
+            score -= (2 * len(pkm_trainer.defeated_pokemons))
         return score
     
     @staticmethod 
@@ -168,8 +168,8 @@ class PokeSystem:
         :return: a boolean value indicating whether the file write operation was successful or not.
         """
         success = False
-        with open(path, mode) as archivo:
-            archivo.write(f'{message}\n')
+        with open(path, mode, encoding='utf-8', newline='\n') as archivo:
+            archivo.write(f'{message}')
             success = True
         return success
 
@@ -187,7 +187,7 @@ class PokeSystem:
         lista_pokemones_o = list[Pokemon]()
         for pokemon in pokemons:
             actual_poke = Pokemon(
-                pokemon['id'], pokemon['poder'], pokemon['nombre'].capitalize(),
+                pokemon['id'], pokemon['poder'], str(pokemon['nombre']).capitalize(),
                 pokemon['icon'], pokemon['icon_element'], pokemon['tipo'],
                 pokemon['evoluciones'], pokemon['debilidad'],
                 pokemon['fortaleza'], pokemon['ataques']
@@ -245,8 +245,8 @@ class PokeSystem:
         :return: a randomly chosen boolean value from the list `turnos`, which contains the values
         `True` and `False`.
         """
-        turnos = [True, False]
-        return random.choice(turnos)
+        turns = [True, False]
+        return random.choice(turns)
 
     def system_message(self, pkm_trainer: Trainer, turno: bool, poke_a: Pokemon, poke_b: Pokemon) -> Pokemon | None:
         """
@@ -288,7 +288,6 @@ class PokeSystem:
 
                 poke_b.check_faint()
                 time.sleep(1)
-                # os.system('cls')
                 return poke_a
         except Exception as e:
             message = f'{datetime.datetime.now()} - {e.args}'

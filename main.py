@@ -104,6 +104,7 @@ def __pokemon_game():
         sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
         sys_manager.show_score()
         dao_manager.insert_table(pkm_trainer, sys_manager)
+        dao_manager.select_table()
         sound.stop()
 
     except Exception as e:

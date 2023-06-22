@@ -21,4 +21,7 @@ SELECT
 FROM `T_NAME`
 GROUP BY
 `id`, `trainer_name`, `status`, `amount_pokemons`, `score`, `dataingestiondttm`
-ORDER BY `score` DESC;
+ORDER BY 
+`score` DESC, 
+`amount_pokemons` DESC,
+`trainer_name` DESC;
