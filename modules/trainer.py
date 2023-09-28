@@ -33,14 +33,15 @@ class Trainer:
     """
     The Trainer class is a class that represents a trainer in the Pokemon game
     """
-    _current_pokemon: Pokemon = None
-    _pokemons: list[Pokemon] = None
-    _defeated_pokemons: list[Pokemon] = None
-    _name: str = None
-    _throw_pokeball: bool = False
-    _status = None
+    __current_pokemon: Pokemon = None
+    __pokemons: list[Pokemon] = None
+    __defeated_pokemons: list[Pokemon] = None
+    __name: str = None
+    __throw_pokeball: bool = False
+    __status = None
+    __instanced = None
 
-    def __init__(self, trainer_name: str):
+    def __init__(self, trainer_name: str = 'Red'):
         """
         This is a constructor function for a class that initializes the name, list of pokemons, and list
         of defeated pokemons.
@@ -49,8 +50,20 @@ class Trainer:
         initialized. In this case, it is used to set the name of an instance of a class
         """
         self.name = trainer_name
-        self._pokemons = list[Pokemon]()
-        self._defeated_pokemons = list[Pokemon]()
+        self.__pokemons = list[Pokemon]()
+        self.__defeated_pokemons = list[Pokemon]()
+        #if not Trainer.__instanced:
+        Trainer.__instanced = self
+    
+    @staticmethod
+    def get_instance():
+        """
+        The function `get_instance` checks if an instance of the `Trainer` class already exists and
+        returns it [using Singleton pattern], otherwise it raises an exception.
+        """
+        if not Trainer.__instanced:
+            return Trainer()
+        else: return Trainer.__instanced
 
     @property
     def pokemon_in_battle(self) -> Pokemon:
@@ -58,7 +71,7 @@ class Trainer:
         It returns the current pokemon in battle.
         :return: The current pokemon in battle.
         """
-        return self._current_pokemon
+        return self.__current_pokemon
 
     @property
     def pokeball_threw(self) -> bool:
@@ -66,7 +79,7 @@ class Trainer:
         This function returns a boolean value of whether or not the pokeball was thrown
         :return: The pokeball_threw method returns a boolean value.
         """
-        return self._throw_pokeball
+        return self.__throw_pokeball
 
     @property
     def name(self) -> str:
@@ -74,7 +87,7 @@ class Trainer:
         It returns the name of the object.
         :return: The name of the person
         """
-        return self._name
+        return self.__name
 
     @property
     def pokemons(self) -> list[Pokemon]:
@@ -82,7 +95,7 @@ class Trainer:
         It returns a list of Pokemon objects.
         :return: A list of Pokemon objects.
         """
-        return self._pokemons
+        return self.__pokemons
 
     @property
     def defeated_pokemons(self) -> list[Pokemon]:
@@ -91,7 +104,7 @@ class Trainer:
         :return: The method `defeated_pokemons` is returning a list of `Pokemon` objects, which is the
         list of defeated pokemons.
         """
-        return self._defeated_pokemons
+        return self.__defeated_pokemons
 
     @property
     def status(self) -> str:
@@ -100,7 +113,7 @@ class Trainer:
         :return: The method `status` is returning a string, which is the value of the private attribute
         `_status`.
         """
-        return self._status
+        return self.__status
 
     @pokemon_in_battle.setter
     def pokemon_in_battle(self, poke_batalla: Pokemon) -> Pokemon:
@@ -109,7 +122,7 @@ class Trainer:
         
         :param poke_batalla: Pokemon
         """
-        self._current_pokemon = poke_batalla
+        self.__current_pokemon = poke_batalla
 
     @pokeball_threw.setter
     def pokeball_threw(self, lanzada: bool) -> None:
@@ -119,7 +132,7 @@ class Trainer:
         
         :param lanzada: bool
         """
-        self._throw_pokeball = lanzada
+        self.__throw_pokeball = lanzada
 
     @name.setter
     def name(self, trainer_name: str) -> None:
@@ -128,7 +141,7 @@ class Trainer:
         
         :param trainer_name: str
         """
-        self._name = trainer_name
+        self.__name = trainer_name
 
     @pokemons.setter
     def pokemons(self, pokes: list[Pokemon]) -> None:
@@ -138,7 +151,7 @@ class Trainer:
         
         :param pokes: list[Pokemon]
         """
-        self._pokemons = pokes.copy()
+        self.__pokemons = pokes.copy()
 
     @defeated_pokemons.setter
     def defeated_pokemons(self, pokes: list[Pokemon]) -> None:
@@ -148,7 +161,7 @@ class Trainer:
         
         :param pokes: list[Pokemon]
         """
-        self._defeated_pokemons = pokes.copy()
+        self.__defeated_pokemons = pokes.copy()
     
     @status.setter
     def status(self, stats: str) -> None:
@@ -161,7 +174,7 @@ class Trainer:
         value of the "stats" parameter. The "_status" attribute is likely used to keep track of the
         current
         """
-        self._status = stats
+        self.__status = stats
 
     def speak(self, color_code_init: str, mensaje: str, color_code_end: str) -> None:
         """
@@ -294,8 +307,8 @@ class Trainer:
             self.speak(f'{_B_WHITE}{_F_RED}', 'Gane la liga pokemon!', f'{_I_WIN}{_NO_COLOR}')
             if self.pokemon_in_battle:
                 self.pokemons.insert(0, deepcopy(self.pokemon_in_battle))
-            self._status = 'Won'
+            self.__status = 'Won'
         else:
             self.speak(f'{_B_RED}{_F_WHITE}','Me quede sin pokemones!', f'{_NO_COLOR}{_I_LOSE}')
-            self._status = 'Lose'
+            self.__status = 'Lose'
         self.check_pokemons()
