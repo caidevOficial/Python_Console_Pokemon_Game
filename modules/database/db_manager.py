@@ -171,22 +171,38 @@ class DAOManager:
         result = self.__execute_queries([query], 'Error getting the table info', f'Table {self.__table} read successfully', type='select')
         return result
     
-    def __select_to_df(self) -> pd.DataFrame:
+    def __query_select_vw(self) -> db.Cursor:
+        queries = list[str]()
+        queries.extend(
+            self.__replace_table_name(self.__open_query_file(self.__dml_paths['update_vw'])).split(';')
+        )
+        queries.append(
+            self.__replace_table_name(self.__open_query_file(self.__dml_paths['select_vw']))
+        )
+        #query = self.__replace_table_name(self.__open_query_file(self.__dml_paths['update_vw']))
+        #result = self.__execute_queries(query.split(';'), 'Error getting the table info', f'Table {self.__table} read successfully', type='update')
+        #query = self.__replace_table_name(self.__open_query_file(self.__dml_paths['select_vw']))
+        result = self.__execute_queries(queries, 'Error getting the view info', f'View {self.__table} read successfully', type='select')
+        return result
+    
+    def __select_to_df(self, query_from: str ='table') -> pd.DataFrame:
         """
         This function executes a SELECT query, retrieves the result, and returns it as a pandas
         DataFrame.
         :return: A pandas DataFrame is being returned.
         """
-        self.__result_from_query = self.__query_select()
-        query = self.__replace_table_name(self.__open_query_file(self.__dml_paths['select']))
-        result = self.__execute_queries([query], 'Error getting the table info', f'Table {self.__table} read successfully', type='select')
-        fields = [field[0] for field in result.description]
+        match query_from:
+            case 'table':
+                self.__result_from_query = self.__query_select()
+            case 'view':
+                self.__result_from_query = self.__query_select_vw()
+        fields = [field[0] for field in self.__result_from_query.description]
         return self.__create_df(fields, self.__result_from_query.fetchall())
     
-    def select_table(self) -> DataFrame:
+    def select_table(self, type: str = 'table') -> DataFrame:
         """
         This function prints the result of selecting data from a database table as a pandas DataFrame.
         """
         print(
-            "Players ordered by score DESC:",
-            self.__select_to_df(), sep='\n')
+            f"Players ordered by score DESC [from {type.capitalize()}]:",
+            self.__select_to_df(query_from=type), sep='\n')

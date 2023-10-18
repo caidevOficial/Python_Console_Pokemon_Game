@@ -8,7 +8,7 @@
 * (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* but WITHOUT ANY WARRANTY without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 *
@@ -17,4 +17,4 @@
 */
 
 INSERT INTO `T_NAME`(`trainer_name`, `status`, `amount_pokemons`, `score`)
-VALUES ("1_1", "1_2", 1_3, 1_4);
+VALUES ("1_1", "1_2", 1_3, 1_4)

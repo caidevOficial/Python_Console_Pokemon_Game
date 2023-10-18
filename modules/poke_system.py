@@ -285,13 +285,13 @@ class PokeSystem:
                 consola =\
                 """
                 Pokemon Actual: {7} {8} {9}             Puntaje: {10}
-                Restantes: {5:02d}
+                Restantes: {5:02d}                           Por Vencer: {11}
                 Pokemones: {6}
                 {0}
                     Tu Pokemon: {1:10s}                 Enemigo:{2:10s}
                     HP: {3:06.2f}                              HP: {4:06.2f}
                 """.format(attack_message, poke_a.name, poke_b.name, poke_a.hp, poke_b.hp, len(pkm_trainer.pokemons),
-                ' | '.join([x.name for x in pkm_trainer.pokemons]), poke_a.name, poke_a.icon, poke_a.icon_el, self.player_score)
+                ' | '.join([x.name for x in pkm_trainer.pokemons]), poke_a.name, poke_a.icon, poke_a.icon_el, self.player_score, len(self.pokemons))
                 print(consola)
 
                 if not poke_a.has_hp():

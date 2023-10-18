@@ -104,7 +104,7 @@ def __pokemon_game():
         sys_manager.player_score = sys_manager.calculate_score(pkm_trainer)
         sys_manager.show_score()
         dao_manager.insert_table(pkm_trainer, sys_manager)
-        dao_manager.select_table()
+        dao_manager.select_table(type='view')
         sound.stop()
 
     except Exception as e:
@@ -126,7 +126,7 @@ def main_game() -> None:
             __pokemon_game()
         case '2':
             dao_manager = DAOManager()
-            dao_manager.select_table()
+            dao_manager.select_table(type='view')
         case _:
             print('Error, please select between 1 or 2.')
 

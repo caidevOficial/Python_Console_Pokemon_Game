@@ -16,13 +16,6 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-SELECT
-    `id`, `trainer_name`, `status`, `amount_pokemons`, `score`, `dataingestiondttm`
-FROM `T_NAME`
-GROUP BY
-`id`, `trainer_name`, `status`, `amount_pokemons`, `score`, `dataingestiondttm`
-ORDER BY 
-`status` DESC,
-`score` DESC, 
-`amount_pokemons` DESC,
-`trainer_name` DESC
+DROP VIEW IF EXISTS `T_NAME_vw`;
+CREATE VIEW `T_NAME_vw` AS
+SELECT * FROM `T_NAME`

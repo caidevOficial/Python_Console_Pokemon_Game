@@ -13,7 +13,8 @@
                 "delete": "./modules/database/queries/DML/delete.sql",
                 "insert": "./modules/database/queries/DML/insert.sql",
                 "select": "./modules/database/queries/DML/select.sql",
-                "update": "./modules/database/queries/DML/update.sql"
+                "update_vw": "./modules/database/queries/DML/update_vw.sql",
+                "select_vw": "./modules/database/queries/DML/select_vw.sql"
             }
         }
     }
