@@ -114,6 +114,18 @@ class PokeSystem:
         :type score: int
         """
         self._player_score = score
+    
+    def __normalize_score(self, score: int) -> int:
+        """
+        This function normalizes a score by returning the score if it is greater than or equal to 0,
+        otherwise it returns 0.
+        
+        :param score: The input parameter "score" is an integer value representing a score
+        :return: The function `__normalize_score` takes an integer `score` as input and returns an
+        integer. If the input `score` is greater than or equal to 0, the function returns the input
+        `score`. Otherwise, it returns 0.
+        """
+        return score if score >= 0 else 0
 
     def calculate_score(self, pkm_trainer: Trainer = None) -> int:
         """
@@ -136,7 +148,7 @@ class PokeSystem:
             pass
         else:
             score -= (2 * len(pkm_trainer.defeated_pokemons))
-        return score
+        return self.__normalize_score(score)
     
     @staticmethod 
     def load_file(path: str) -> list[dict]:
@@ -206,6 +218,7 @@ class PokeSystem:
                     self._filename
                 )
             )
+            random.shuffle(self.pokemons)
             print(f'Sistema: {len(self.pokemons)} Pokemones salvajes encontrados!')
         except Exception as e:
             message = f'{datetime.datetime.now()} - {e.args}'
